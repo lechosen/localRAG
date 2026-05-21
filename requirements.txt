@@ -1,8 +1,11 @@
 langchain
-lanchain-community
+langchain-community
 langchain-ollama
+langchain-chroma
+langchain-text-splitters
 chromadb
 pypdf
 beautifulsoup4
 requests
 gradio
+python-dotenv
