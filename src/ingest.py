@@ -10,7 +10,7 @@ EMBED_BATCH_SIZE = 50  # number of chunks sent to Ollama per embedding call
 
 
 def load_documents(source: str):
-    # 根据 source 类型选择加载器，支持 URL、PDF 和纯文本文件
+    # based on source, support URL, PDF and *.txt
     if source.startswith("http://") or source.startswith("https://"):
         loader = WebBaseLoader(source)
     elif source.lower().endswith(".pdf"):
