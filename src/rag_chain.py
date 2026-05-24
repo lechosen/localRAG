@@ -29,7 +29,7 @@ def ask(question: str) -> dict:
     prompt = PromptTemplate.from_template(PROMPT_TEMPLATE)
                                                                                                                                     
     # Retrieve once; reuse docs for both context injection and source attribution
-    source_docs = retriever.invoke(question) #pure vector similarity search. Takes the question, converts it to an embedding, finds the 3 closest chunks in Chroma, returns them as a list of Document, including page_content 和 metadata息
+    source_docs = retriever.invoke(question) #pure vector similarity search. Takes the question, converts it to an embedding, finds the 3 closest chunks in Chroma, returns them as a list of Document, including page_content 和 metadata
     context = "\n\n".join(doc.page_content for doc in source_docs)
 
     chain = (
