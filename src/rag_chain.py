@@ -33,7 +33,7 @@ def ask(question: str) -> dict:
     context = "\n\n".join(doc.page_content for doc in source_docs)
 
     chain = (
-        prompt  # 接收 {"context": ..., "question": ...} 
+        prompt  # received {"context": ..., "question": ...} 
         | llm
         | StrOutputParser() 
 
