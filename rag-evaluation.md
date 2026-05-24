@@ -19,12 +19,12 @@ Evaluating only the final answer masks retrieval problems. All three dimensions 
 - **C** = the intersection: retrieved AND relevant
 
 ### Recall
-$$\text{Recall} = \frac{C}{A} = \frac{\text{retrieved relevant}}{\text{all relevant}}$$
+$$\text{Recall} = \frac{C}{A} = \frac{\text{retrieved relevant}}{\text{all relevant}}= \frac{\text{all true positive}}{\text{all true postive cases}}\text{ in ML Context}$$
 
 Measures **coverage**: did we miss any critical information?
 
 ### Precision
-$$\text{Precision} = \frac{C}{B} = \frac{\text{retrieved relevant}}{\text{all retrieved}}$$
+$$\text{Precision} = \frac{C}{B} = \frac{\text{retrieved relevant}}{\text{all retrieved}}= \frac{\text{all true positive}}{\text{all predicted postive cases}}\text{ in ML Context}$$
 
 Measures **accuracy**: how much of what we retrieved is actually useful?
 
@@ -61,16 +61,12 @@ Harmonic mean — balances the natural tension between recall and precision.
 ### RAGAS — RAG Pipeline Quality
 Reference-free evaluation: no human-annotated ground truth required.
 
-| Metric | Layer | Question |
-|--------|-------|----------|
-| **Faithfulness** | Generation | Does every claim in the answer have support in the retrieved context? |
-| **Answer Relevancy** | Generation | Does the answer actually address the user's question? |
-| **Context Precision** | Retrieval | Are relevant chunks ranked near the top? |
-| **Context Recall** | Retrieval | Were all relevant documents retrieved? |
-
-**Faithfulness scoring:** LLM decomposes the answer into atomic claims → verifies each against context → score = supported claims / total claims.
-
-**Answer Relevancy scoring:** LLM generates N reverse questions from the answer → cosine similarity with original question → average. No LLM-as-Judge; pure math.
+| Metric | Layer | Question | Mechansium |
+|--------|-------|----------|----------|
+| **Faithfulness** | Generation | Does every claim in the answer have support in the retrieved context? |LLM decomposes the answer into atomic claims → LLM judges each against context → score = supported claims / total claims. |
+| **Answer Relevancy** | Generation | Does the answer actually address the user's question? | LLM generates N reverse questions from the answer → cosine similarity with original question → average. No LLM-as-Judge; pure math.|
+| **Context Precision** | Retrieval | Are relevant chunks ranked near the top? |LLM judge each chunks are useful or not (binary) → the top-k claims are rewarded a lot|
+| **Context Recall** | Retrieval | Were all relevant documents retrieved? |LLM decomposes the **reference answer** into atomic claims → LLM judges each claims from the **reference answer** against context → score = supported claims / total claims. 
 
 ```
 pip install ragas
